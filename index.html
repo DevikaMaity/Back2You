@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+     /<!-- this is the header part-->
+    <nav class="navigationbar">
+        <div class="navigation_in_div">
+            <div class="logo"><a href="#">Back 2 You</div>
+                <ul>
+                    <li><a href="#">FOUND/LOST</a></li>
+                    <li><a href="#">CONTACT US</a></li>
+                    <button 
+                    onclick="document.getElementById('dashboardSection').scrollIntoView({ behavior: 'smooth' });" 
+                    style="color: #ffffff;">
+                    Reported
+                  </button>
+                    <button><a href="#">Login</a></button>
+                    <button><a href="#">Logout</a></button>
+                    
+                </ul>
+        </div>     
+    </nav>
+    <section class="next_section">
+        <div class="next-overlay"></div>
+        <div class="content">
+          <h1>Find Your Lost Items</h1>
+          <p class="tag">Powered by advanced location technology</p>
+           <div class="search-bar">
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Search for lost items" autocomplete="off">
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                  </button>
+            </div> 
+           </div>
+        
+          </div>
+        </div>
+        </section>
+        <!-- THIS THE UPLOADING PART IF A USER FOUND THE ITEM THEN THEY CAN ADD THE IMAGE OF IT-->
+
+        <section class="upload-section">
+            <div class="upload-container">
+              <h2>Upload Lost/Found Item</h2>
+              <form id="uploadForm">
+                <input type="text" id="itemName" placeholder="Item Name" required />
+                <textarea id="description" placeholder="Description" required></textarea>
+                <div class="file-upload">
+                  <label for="itemImage">Choose Image</label>
+                  <input type="file" id="itemImage" accept="image/*" required />
+                </div>
+                <button type="button" class="location-btn" onclick="getLocation()">
+                  <span class="emoji">📍</span> Tag Current Location
+                </button>
+                <div id="locationDisplay">Location: Not tagged yet</div>
+                <button type="submit" class="submit-btn">Submit Item</button>
+              </form>
+            </div>
+          </section>
+       <!-- THIS IS THE REPORTING PART WHERE YOU CAN SEE THE UPLOADED ITEMS-->>
+<section class="dashboard-section" id="dashboardSection">
+    <div class="dashboard-container">
+      <h2>Reported Items </h2>
+      
+      <div class="dashboard-content">
+        <div class="items-list" id="dashboardItems">
+          <div class="search-filter">
+            <input type="text" id="dashboardSearch" placeholder="Search items...">
+            <select id="statusFilter">
+              <option value="all">All Items</option>
+              <option value="unclaimed">Unclaimed</option>
+              <option value="claimed">Claimed</option>
+              <option value="pending">Pending Verification</option>
+            </select>
+          </div>
+          
+          <div class="items-container" id="itemsContainer">
+          
+            <div class="no-items">No items reported yet</div>
+          </div>
+        </div>
+        
+        <div class="verification-panel" id="verificationPanel">
+          <div class="panel-header">
+            <h3>Claim Verification</h3>
+            <button class="close-panel" id="closePanel">&times;</button>
+          </div>
+          
+          <div class="panel-content">
+            <div class="item-display">
+              <img id="verificationImage" src="" alt="Item Image">
+              <div class="item-info">
+                <h4 id="verificationName"></h4>
+                <p id="verificationDescription"></p>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> <span id="verificationLocation"></span></p>
+                <p class="date"><i class="far fa-calendar-alt"></i> <span id="verificationDate"></span></p>
+              </div>
+            </div>
+            <!-- IF YOU WANT TO CLAIM THE ITEM IS YOURS THEN YOU HAVE TO FILL THE DATA HERE-->
+            <form id="claimForm">
+              <div class="form-group">
+                <label for="claimerName">Your Name</label>
+                <input type="text" id="claimerName" required>
+              </div>
+              <div class="form-group">
+                <label for="claimerEmail">Email</label>
+                <input type="email" id="claimerEmail" required>
+              </div>
+              <div class="form-group">
+                <label for="claimerPhone">Phone Number</label>
+                <input type="tel" id="claimerPhone" required>
+              </div>
+              <div class="form-group">
+                <label for="claimDescription">Why is this yours?</label>
+                <textarea id="claimDescription" rows="4" required></textarea>
+              </div>
+              <button type="submit" class="submit-claim-btn">Submit Claim</button>
+            </form>
+            <!-- HERE THE ADMIN WHO HAVE FOUND YOUR OBJECT WILL VERIFY AND ACCORDINGLY ACCEPT OR REJECT YOUR CLAIM-->
+            <div class="admin-verification" id="adminVerification">
+              <h4>Admin Verification</h4>
+              <div class="verification-details">
+                <p><strong>Claimed by:</strong> <span id="claimedByName"></span></p>
+                <p><strong>Contact:</strong> <span id="claimedByContact"></span></p>
+                <p><strong>Reason:</strong> <span id="claimedByReason"></span></p>
+              </div>
+              <div class="verification-actions">
+                <button class="accept-btn" id="acceptClaim">Accept Claim</button>
+                <button class="reject-btn" id="rejectClaim">Reject Claim</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- THIS IS A CONTACT-SECTION -->
+
+          <section class="contact-section" id="contactSection">
+            <div class="contact-container">
+              <h2>Contact Us</h2>
+              <div class="contact-content">
+                <div class="contact-info">
+                  <h3>How to Reach Us</h3>
+                  <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>123 Lost & Found Plaza, Your City</p>
+                  </div>
+                  <div class="info-item">
+                    <i class="fas fa-phone"></i> 
+                    <p>+1 (555) 987-6543</p>
+                  </div>
+                  <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>help@backtoyou.com</p>
+                  </div>
+                  <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Monday - Friday: 9AM - 6PM</p>
+                  </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                  <input type="text" placeholder="Your Name" required>
+                  <input type="email" placeholder="Email Address" required>
+                  <input type="text" placeholder="Subject">
+                  <textarea placeholder="Your Message" rows="5" required></textarea>
+                  <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+
+          <script src="script.js"></script>
+    
+</body>
+</html>
